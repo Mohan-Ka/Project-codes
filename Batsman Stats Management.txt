@@ -1,0 +1,213 @@
+#include<iostream>
+using namespace std;
+
+class batsman
+{
+public:
+    string name;
+    int runs =0;
+    int age=0;
+    int fifties=0, hundreds=0;
+    int innings=0;
+    int matches = 0;
+    
+    void  getbatsmanDetails(char ch)
+    {
+        cout<<"\nEnter Player Name : ";
+        cin>>name;
+        cout<<"Enter Age  : ";
+        cin>>age;
+        cout<<"Enter total runs    : ";
+        cin>>runs;
+        if(ch == '1'){
+        cout<<"Enter T-20 matches    : ";
+        cin>>innings;
+        }
+        if(ch=='2'){
+        cout<<"Enter 0DI matches    : ";
+        cin>>matches;
+        }
+        cout<<"Enter number of fifties    : ";
+        cin>>fifties;
+        cout<<"Enter number of hundreds    : ";
+        cin>>hundreds;
+    }
+    void displayDetails(char type)
+    {   cout<<"\n******STATS******\n\n";
+        cout<<"\n\nPlayer Name : "<<name;
+        cout<<"\nAge  : "<<age;
+        
+        if(type == '1'){
+          cout<<"\n T-20 matches   : "<<innings;
+        }
+        if(type=='2'){
+          cout<<"\n ODI Matches   : "<<matches;
+        }
+        cout<<"\nFifties   : "<<fifties;
+        cout<<"\nHundreds   : "<<hundreds;
+        
+    }
+};
+
+class t20_batsman : public batsman
+{
+private:
+    int t_runs =0;
+    int score=0;
+    int count=0;
+    
+public:
+    void t_display()
+    {
+       int t_innings = innings;
+        cout<<"\ntotal matches:"<<t_innings+count;
+        cout<<"\ntotal score :"<<score+runs;
+        cout<<"\n Average : "<<(score+runs)/t_innings;
+    }
+    void t_score()
+    {
+       
+        count = count+1;
+        cout<<"\nEnter the no. of runs scored by batsman in the current match :  ";
+        cin>>score;
+        t_runs = runs + score;
+        cout<<"Total runs: "<< t_runs;
+        
+    }
+    void t_average()
+    {
+        float average;
+        cout<<"\n\nRuns : "<<runs;
+        cout<<"\nT-20 Average :"<<runs/innings;
+    }
+ 
+};
+ 
+class odi_batsman : public batsman
+{
+private:
+    int o_runs =0;
+    int score=0;
+    int count=0;
+    
+public:
+    void o_display()
+    {
+        int o_matches = matches;
+        cout<<"\ntotal matches:"<<o_matches+count;
+         cout<<"\ntotal score :"<<score+runs;
+        cout<<"\nODI Average : "<<(score+runs)/matches;
+    }
+    void o_score()
+    {
+       count = count+1;
+       
+        cout<<"\nEnter the no. of runs scored by batsman in the current match :  ";
+        cin>>score;
+        o_runs = runs + score;
+        cout<<"Total runs: "<< o_runs;
+        
+    }
+    void o_average()
+    {
+        float average;
+        cout<<"\n\nRuns : "<<runs;
+        cout<<"\nODI Average :"<<runs/matches;
+    }
+ 
+};
+ 
+ 
+ 
+int main()
+{
+    t20_batsman t1;
+    odi_batsman o1;
+    char type;
+
+    cout<<"\nEnter '1' for T-20 and '2' for ODI : ";
+    cin>>type;
+    int choice;
+    if(type=='1')
+    {
+        t1.getbatsmanDetails(type);
+        while(1)
+        {
+            cout<<"\nChoose Your Choice"<<endl;
+            cout<<"1)   Score"<<endl;
+            cout<<"2)   Average"<<endl;
+            cout<<"3)   Display Runs"<<endl;
+            cout<<"4)   Display with full Details"<<endl;
+            cout<<"5)   Exit"<<endl;
+            cout<<"Enter Your choice: ";
+            cin>>choice;
+            switch(choice)
+            {
+            case 1 :
+                t1.t_score();
+                break;
+            case 2 :
+                t1.t_average();
+                break;
+            case 3 :
+                t1.t_display();
+                break;
+            case 4 :
+                t1.displayDetails(type);
+                t1.t_display();
+                break;
+            case 5 :
+                goto end;
+            default:
+                cout<<"\n\nEntered choice is invalid,\"TRY AGAIN\"";
+            }
+        }
+    }
+    else if(type=='2')
+    {
+        o1.getbatsmanDetails(type);
+        while(1)
+        {
+            cout<<"\nChoose Your Choice"<<endl;
+            cout<<"1)   Score"<<endl;
+            cout<<"2)   Average"<<endl;
+            cout<<"3)   Display Runs"<<endl;
+            cout<<"4)   Display with full Details"<<endl;
+            cout<<"5)   Exit"<<endl;
+            cout<<"Enter Your choice: ";
+            cin>>choice;
+            switch(choice)
+            {
+            case 1 :
+                o1.o_score();
+                break;
+            case 2 :
+                o1.o_average();
+                break;
+            case 3 :
+                o1.o_display();
+                break;
+            case 4 :
+                o1.displayDetails(type);
+                o1.o_display();
+                break;
+            case 5 :
+                goto end;
+            default:
+                cout<<"\n\nEntered choice is invalid,\"TRY AGAIN\"";
+            }
+        }
+    }
+    
+    else
+    {
+        cout<<"\nInvalid format Selection";
+    }
+end:
+    cout<<"\nThank You";
+    return 0;
+}
+
+
+
+
